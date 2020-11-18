@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Inventory\model\inventory;
-use Bageur\Inventory\Processors\UploadProcessor;
+use Bageur\Inventory\Processors\UploadBase64;
 use Validator;
 class InventoryController extends Controller
 {
@@ -25,10 +25,7 @@ class InventoryController extends Controller
                         'jenis_produk'              => 'required',
                         'qty'                       => 'required|numeric',
                         'harga'                     => 'required|numeric',
-                    ];
-        if($request->file('gambar') != null){
-            $rules['gambar'] = 'mimes:jpg,jpeg,png,svg|max:1000';
-        }              
+                    ];             
         $messages 	= [];
         $attributes = [];
 
@@ -46,11 +43,12 @@ class InventoryController extends Controller
             $inventory->unit                    = $request->unit;
             $inventory->qty                     = $request->qty;
             $inventory->harga                   = $request->harga;
-            if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'inventory');
-                $inventory->gambar          = $upload;
-            }
-            
+            if($request->file != null){
+                $upload                         = UploadBase64::avatarbase64($request->file,'inventory');
+	           	$inventory->gambar	            = $upload['up'];
+                $inventory->gambar_path         = $upload['path'];
+       		}
+    
             $inventory->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }
@@ -82,10 +80,7 @@ class InventoryController extends Controller
                         'jenis_produk'              => 'required',
                         'qty'                       => 'required|numeric',
                         'harga'                     => 'required|numeric',
-                    ];
-        if($request->file('gambar') != null){
-            $rules['gambar'] = 'mimes:jpg,jpeg,png,svg|max:1000';
-        }              
+                    ];        
         $messages   = [];
         $attributes = [];
 
@@ -102,10 +97,11 @@ class InventoryController extends Controller
             $inventory->unit                    = $request->unit;
             $inventory->qty                     = $request->qty;
             $inventory->harga                   = $request->harga;
-            if($request->file('gambar') != null){
-                $upload                     = UploadProcessor::go($request->file('gambar'),'inventory');
-                $inventory->gambar          = $upload;
-            }
+            if($request->file != null){
+                $upload                         = UploadBase64::avatarbase64($request->file,'inventory');
+	           	$inventory->gambar	            = $upload['up'];
+                $inventory->gambar_path         = $upload['path'];
+       		}
             $inventory->save();
             return response(['status' => true ,'text'    => 'has input'], 200); 
         }

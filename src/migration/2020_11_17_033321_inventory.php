@@ -21,6 +21,7 @@ class Inventory extends Migration
             $table->string('gambar')->nullable();
             $table->string('jenis_produk');
             $table->string('unit');
+            $table->string('gambar_path');
             $table->double('qty');
             $table->double('harga');
             $table->string('status')->default('aktif');

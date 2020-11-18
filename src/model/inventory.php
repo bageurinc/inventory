@@ -9,15 +9,15 @@ use Bageur\Inventory\Processors\AvatarProcessor;
 class inventory extends Model
 {
     protected $table   = 'bgr_inventory';
-    protected $appends = ['avatar', 'harga'];
+    protected $appends = ['avatar', 'harga_barang'];
 
     public function getAvatarAttribute()
     {
-            return AvatarProcessor::get($this->nama,@$this->gambar);
+            return AvatarProcessor::get($this->nama,$this->gambar,$this->gambar_path);
     }     
-    public function getHargaAttribute()
+    public function getHargaBarangAttribute()
     {
-            $cur = number_format($this->double, 0, '.', '.');
+            $cur = number_format($this->harga, 0, '.', '.');
             return $cur;
     }     
     public function scopeDatatable($query,$request,$page=7)
