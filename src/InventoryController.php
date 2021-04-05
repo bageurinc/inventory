@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Bageur\Inventory\model\inventory;
-use Bageur\Inventory\Processors\UploadBase64;
+use Bageur\Inventory\processors\UploadBase64;
 use Validator;
 class InventoryController extends Controller
 {

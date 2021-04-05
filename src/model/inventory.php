@@ -4,7 +4,7 @@ namespace Bageur\Inventory\Model;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Bageur\Inventory\Processors\AvatarProcessor;
+use Bageur\Inventory\processors\AvatarProcessor;
 
 class inventory extends Model
 {
