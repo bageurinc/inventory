@@ -20,12 +20,13 @@ class InventoryController extends Controller
     {
         // return $request;
         $rules    	= [
-                        'nama'                      => 'required|unique:bgr_inventory|min:3',
+                        // 'nama'                      => 'required|unique:bgr_inventory|min:3',
+                        'nama'                      => 'required',
                         'unit'                      => 'required',
                         'jenis_produk'              => 'required',
                         'qty'                       => 'required|numeric',
                         'harga'                     => 'required|numeric',
-                    ];             
+                    ];
         $messages 	= [];
         $attributes = [];
 
@@ -48,9 +49,9 @@ class InventoryController extends Controller
 	           	$inventory->gambar	            = $upload['up'];
                 $inventory->gambar_path         = $upload['path'];
        		}
-    
+
             $inventory->save();
-            return response(['status' => true ,'text'    => 'has input'], 200); 
+            return response(['status' => true ,'text'    => 'has input'], 200);
         }
     }
 
@@ -63,7 +64,7 @@ class InventoryController extends Controller
     public function show($id)
     {
         return inventory::findOrFail($id);
-    }   
+    }
 
     /**
      * Update the specified resource in storage.
@@ -75,12 +76,13 @@ class InventoryController extends Controller
     public function update(Request $request, $id)
     {
         $rules      = [
-                        'nama'                      => 'required|unique:bgr_inventory,nama,'.$id.',id|min:3',
+                        // 'nama'                      => 'required|unique:bgr_inventory,nama,'.$id.',id|min:3',
+                        'nama'                      => 'required',
                         'unit'                      => 'required',
                         'jenis_produk'              => 'required',
                         'qty'                       => 'required|numeric',
                         'harga'                     => 'required|numeric',
-                    ];        
+                    ];
         $messages   = [];
         $attributes = [];
 
@@ -103,7 +105,7 @@ class InventoryController extends Controller
                 $inventory->gambar_path         = $upload['path'];
        		}
             $inventory->save();
-            return response(['status' => true ,'text'    => 'has input'], 200); 
+            return response(['status' => true ,'text'    => 'has input'], 200);
         }
     }
 
@@ -117,7 +119,7 @@ class InventoryController extends Controller
     {
         $delete = inventory::findOrFail($id);
         $delete->delete();
-        return response(['status' => true ,'text'    => 'has deleted'], 200); 
+        return response(['status' => true ,'text'    => 'has deleted'], 200);
     }
 
 }
