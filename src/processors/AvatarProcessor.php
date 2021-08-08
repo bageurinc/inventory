@@ -10,6 +10,6 @@ class AvatarProcessor {
             }
             return null;
         }
-        return url('storage/'.$folder.'/'.$image);
+        return \Storage::url($folder.'/'.$image);
     }
 }
